@@ -32,13 +32,35 @@ export default function TournamentNewPage() {
           Название
           <input value={name} onChange={(e) => setName(e.target.value)} required minLength={2} />
         </label>
-        <label>
-          Тип сетки
-          <select value={bracketType} onChange={(e) => setBracketType(e.target.value)}>
-            <option value="single">Олимпийская (одиночное выбывание)</option>
-            <option value="round_robin">Круговой турнир</option>
-          </select>
-        </label>
+        <fieldset className="type-picker">
+          <legend>Тип сетки</legend>
+          <div className="type-options">
+            <label className={`type-option ${bracketType === 'single' ? 'selected' : ''}`}>
+              <input
+                type="radio"
+                name="bracketType"
+                value="single"
+                checked={bracketType === 'single'}
+                onChange={(e) => setBracketType(e.target.value)}
+              />
+              <img src="./trophy.svg" alt="Иллюстрация одиночного выбывания" />
+              <span className="type-title">Олимпийская сетка</span>
+              <span className="type-description">Проиграл матч — выбыл. Быстрый формат для плей-офф.</span>
+            </label>
+            <label className={`type-option ${bracketType === 'round_robin' ? 'selected' : ''}`}>
+              <input
+                type="radio"
+                name="bracketType"
+                value="round_robin"
+                checked={bracketType === 'round_robin'}
+                onChange={(e) => setBracketType(e.target.value)}
+              />
+              <img src="./league.svg" alt="Иллюстрация кругового турнира" />
+              <span className="type-title">Круговой турнир</span>
+              <span className="type-description">Каждый играет с каждым, лидер определяется по таблице.</span>
+            </label>
+          </div>
+        </fieldset>
         <p className="hint">
           После создания добавьте участников и нажмите «Сгенерировать сетку». Данные сохраняются в LocalStorage
           браузера.
